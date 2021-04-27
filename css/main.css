@@ -1,0 +1,150 @@
+/*STRUCTURE*/
+body{
+  padding: 20px 0 10px;
+  color: #111111;
+}
+.section{
+  border: 1px solid #111111;
+  border-radius: 5px;
+  margin: 5px auto 20px;
+  padding: 1vw 4vw 3vw;
+  max-width: 40%;
+}
+
+.feedback{
+  border: 1px solid #111111;
+  border-radius: 5px;
+  margin: 5px auto 20px;
+  padding: 1vw 4vw 3vw;
+  max-width: 90%;
+}
+
+#spaceFiller{
+  margin-top: 50vh;
+}
+
+#top{
+  width: 40%;
+  margin:auto;
+}
+
+/*Tables*/
+table, th, td{
+  margin: 5px 5px 20px;
+}
+th,td{
+  padding: 1em;
+}
+td > label{
+  alignment: center;
+}
+
+table.visTable, table.visTable > tbody > tr > th, .visTable > tbody > tr > td{
+  border: 1px solid #111111;
+  border-collapse: collapse;
+}
+/*
+*    Title: CSS :nth-child() Selector
+*    Site owner/sponsor: w3schools.com
+*    Date: 2021
+*    Availability: https://www.w3schools.com/cssref/sel_nth-child.asp (Accessed 6  April 2021)
+*    Modified:  changed p to tr and changed the code inside the block
+*/
+table.visTable > tbody > tr:nth-child(even){
+  background-color: #eeeeee;
+}
+/*end of code sample*/
+
+li{
+  margin: 10px 0 20px;
+}
+ol.tightList{
+  list-style-type: lower-alpha;
+}
+ol.tightList > li{
+  margin: 5px 0 10px;
+}
+ol.tightList > li > p{
+  display: inline;
+}
+ol.horizontalList > li{
+  display: inline;
+  margin: 0 2em 0 0;
+}
+ol.alignAnswer > li > label{
+  float: right;
+  padding-right: 1em;
+}
+/*SYNTAX*/
+span.help{
+  font-weight: bolder;
+  position: absolute;
+  background-color: #eeeeee;
+  border-radius: .1em;
+}
+
+
+/*DECORATION*/
+.marks{
+  color: #e33737;
+}
+
+.sectionHead{
+  text-decoration: #111111 underline;
+}
+.highlight{
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/*FUNCTIONAL*/
+#timer{
+  position: fixed;
+  left:0;
+  top:0;
+  background-color: #eeeeee;
+  color: #aa1111;
+}
+
+#optional4{
+  display: none;
+}
+/*MEDIA QUERIES*/
+@media only screen and (max-width: 1920px) and (min-width: 481px){
+  .section{
+    max-width: 60%;
+  }
+  ol.horizontalList > li{
+    margin: 0 .5em 0 0;
+  }
+}
+
+@media only screen and (max-width: 480px){
+  #top{
+    width: 100%;
+  }
+  .section{
+    max-width: 100%;
+    padding: 1vw 0 3vw;
+  }
+  h3{
+    margin-left: 1em;
+  }
+
+  ol.horizontalList > li{
+    display: block;
+  }
+  ol.horizontalList > li > label > span{
+    float: right;
+    padding-right: .5em;
+  }
+  ol.alignAnswer >li > label{
+    display: block;
+    float: none;
+    padding-right: 0;
+  }
+
+  th,td{
+    padding: 1em .05em;
+  }
+}
