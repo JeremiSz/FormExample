@@ -3,11 +3,15 @@
 //ANSWER SYSTEM
 {
   const DISPLAY_NONE = "none";
-  const DISPLAY_BLOCK ="block"
+  const DISPLAY_BLOCK ="block";
+
+  const filled = Array();
+  answers  = Array();
 
   //SETUP
   {
     //filling arrays
+
     const sizes = [4, 5, 2, 4, 4, 5, 2, 8, 6, 5, 2];
     function _totalSection(section){
       let total = 0;
@@ -145,7 +149,9 @@
   }
 
   function drawTimer(){
-    timerElement.innerText = minLeft.toString().padStart(2,"0") + ":" + secLeft.toString().padEnd(2,"0")
+    const left = minLeft.toString().padStart(2,'0');
+    const right = secLeft.toString().padEnd(2,'0');
+    timerElement.innerText = `${left}:${right}`;
   }
 }
 
@@ -187,7 +193,8 @@
   const btnSubmit = document.getElementById("submit");
   btnSubmit.addEventListener("click",() => {
     let answers = getAllAnswerTotals();
-    window.localStorage.setItem("totals",answers.toString());
+
+    window.localStorage.setItem(LOCAL_STORAGE, JSON.stringify(answers));
     location.href = "html/Result.html";
   })
 }

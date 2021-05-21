@@ -1,19 +1,22 @@
 "use strict"
 
 const FEEDBACK_CLASS = "feedback";
-const SECTION_CLASS = "section"
+const SECTION_CLASS = "section";
+const LOCAL_STORAGE = "totals";
 
-const answers = Array();
-const filled = Array();
+let answers;
+
 
 const eleSections = document.getElementsByClassName(SECTION_CLASS);
 
 function showResult(section, totalPoints){
   {
     let children = eleSections[section - 1].children;
-    for (let i = 0; i < children.length; i++) {
-      if (children[i].className === FEEDBACK_CLASS)
-        eleSections[section - 1].removeChild(children[i]);
+    if(children !== null) {
+      for (let i = 0; i < children.length; i++) {
+        if (children[i].className === FEEDBACK_CLASS)
+          eleSections[section - 1].removeChild(children[i]);
+      }
     }
   }
 
@@ -110,11 +113,7 @@ function showResult(section, totalPoints){
 
   let box = document.createElement("p");
   let sectionTexts = secText[section - 1];
-console.log(sectionTexts.length)
-  console.log(grade);
   box.innerHTML = sectionTexts[sectionTexts.length - (grade + 1)];
-  console.log(sectionTexts)
-  console.log(sectionTexts[sectionTexts.length - (grade + 1)]);
   box.style.backgroundColor = colour[grade];
   box.className = FEEDBACK_CLASS;
   eleSections[section -1].appendChild(box);

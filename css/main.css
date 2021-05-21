@@ -3,7 +3,7 @@ body{
   padding: 20px 0 10px;
   color: #111111;
 }
-.section{
+.section, #overall{
   border: 1px solid #111111;
   border-radius: 5px;
   margin: 5px auto 20px;
@@ -104,6 +104,10 @@ span.help{
   top:0;
   background-color: #eeeeee;
   color: #aa1111;
+}
+
+.center{
+  text-align: center;
 }
 
 #optional4,#optional8a,#optional8b{
