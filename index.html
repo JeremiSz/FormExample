@@ -8,6 +8,7 @@
 
   <link rel="apple-touch-icon" href="icon.png">
   <link rel="stylesheet" href="css/main.css">
+  <script type="text/javascript" src="js/resultDisplayer.js" defer></script>
   <script type="text/javascript" src="js/main.js" defer></script>
 
 </head>
@@ -501,7 +502,7 @@
 
           <p>(a) increasing the UniversAbility  of your services? (eg. facilities, equipment and staff training)</p>
           <label>Yes <input type="radio" name="S5Q3" value="10"><span class="marks">(10)</span></label>
-          <label>NO <input type="radio" name="S5Q3" value="0"></label>
+          <label>No <input type="radio" name="S5Q3" value="0"></label>
           <label>
             Not needed because equipment is already full accessible
             <input type="radio" name="S5Q3" value="10">
@@ -595,9 +596,9 @@
             Do you and your staff provide <span class="highlight">programmes specifically</span> for people with disabilities?
             <span class="help" data-text="Required: Yes have to select either yes or no ">*</span>
           </p>
-          <label>Yes <input type="radio" name="reveal8a" value="Y"></label>
-          <label>No <input type="radio" name="reveal8b" value="N"></label>
-          <div><
+          <label>Yes <input type="radio" name="revealer8a"></label>
+          <label>No <input type="radio" name="revealer8a"></label>
+          <div id="optional8a">
           <p>
             If Yes please complete the table below
             <span class="help" data-text="Required: Can select all or none">*</span>
@@ -646,10 +647,16 @@
           <p>
             Do people with disabilities use the gym, pool, or participate in group activities etc. alongside other
             members?
+            <span class="help" data-text="Required: Yes have to select either yes or no ">*</span>
           </p>
-          <label>Yes <input type="radio" name="revealer82" value="Y"></label>
-          <label>No <input type="radio" name="revealer82" value="N"></label>
+          <label>Yes <input type="radio" name="revealer8b"></label>
+          <label>No <input type="radio" name="revealer8b"></label>
 
+          <div id="optional8b">
+            <p>
+              If Yes please complete the table below
+              <span class="help" data-text="Required: Can select all or none">*</span>
+            </p>
           <table class="visTable">
             <tr>
               <th>Disability Category</th>
@@ -667,7 +674,7 @@
               <td>Intellectual disabilities</td>
               <td><span class="marks">(10)</span></td>
               <td><label>
-                <input type="checkbox" name="S86" value="10">
+                <input type="checkbox" name="S8Q6" value="10">
               </label></td>
             </tr>
             <tr>
@@ -685,6 +692,7 @@
               </label></td>
             </tr>
           </table>
+          </div>
         </li>
       </ol>
       <section></section>
@@ -821,7 +829,7 @@
     </div>
 
     <div class="section">
-      <input type="submit" value="Finish">
+      <input id="submit" type="button" value="Finish">
     </div>
 
     <div id="spaceFiller"></div>

@@ -106,9 +106,10 @@ span.help{
   color: #aa1111;
 }
 
-#optional4{
+#optional4,#optional8a,#optional8b{
   display: none;
 }
+
 /*MEDIA QUERIES*/
 @media only screen and (max-width: 1920px) and (min-width: 481px){
   .section{
