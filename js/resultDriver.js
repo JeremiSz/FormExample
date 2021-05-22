@@ -26,7 +26,6 @@
         textIndex = 2;
       else
         textIndex = 3;
-      console.log(textIndex);
       text = Array(
         `Your organisation is evidently committed to inclusion.  Your perspective will be most valuable at the
         face to face training session as both an advocate and a guide for inclusive fitness service provision. You are
@@ -47,7 +46,6 @@
 
 
     }
-    console.log(text);
     const eleResult = document.createElement("p");
     eleResult.innerHTML = text;
     eleResult.className = FEEDBACK_CLASS;

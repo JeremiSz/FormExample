@@ -1,51 +1,71 @@
 "use strict"
 
+let filled
 //ANSWER SYSTEM
 {
   const DISPLAY_NONE = "none";
   const DISPLAY_BLOCK ="block";
 
-  const filled = Array();
+  filled = Array();
   answers  = Array();
 
   //SETUP
   {
     //filling arrays
 
-    const sizes = [4, 5, 2, 4, 4, 5, 2, 8, 6, 5, 2];
+    const sizes = [4, 5, 2, 4, 5, 5, 2, 8, 6, 5, 2];
     function _totalSection(section){
       let total = 0;
       answers[section - 1].forEach((value => total += Number(value)));
       return total;
     }
 
-    sizes.forEach((value) => {
+    sizes.forEach((value, index) => {
       answers.push(Array(value));
-      filled.push(Array(value));
-    });
 
-    for (let i = 0; i < filled.length; i++) {
-      for (let j = 0; j < sizes[i]; j++) {
-        answers[i][j] = 0;
+      let requiredQuestions;
+
+      switch (index){
+        case(3):
+        case(9):
+          requiredQuestions = 1;
+          break;
+        case(7):
+          requiredQuestions = 2;
+          break;
+        default:
+          requiredQuestions = value;
+          break;
       }
-    }
+      filled.push(Array(requiredQuestions));
+
+      //POPULATING ARRAYS
+      for (let i = 0;i<filled[index].length;i++){
+        filled[index][i] = false;
+      }
+
+      for (let i = 0; i < value; i++) {
+        answers[index][i] = 0;
+      }
+    });
     //hiding sections
     for (let i = 1; i < eleSections.length; i++) {
       eleSections[i].style.display = DISPLAY_NONE;
     }
     function setAnswer(section,question,value){
       answers[section - 1][question - 1] = Number(value);
-      filled[section - 1][question - 1] = true;
+      _setAnswered(section,question);
 
       if(_checkAnswered(section)){
         showResult(section,_totalSection(section));
         _revealNext(section);
       }
     }
-
-    function addAnswer(section,question,value,subtract){
+  //Yes this is implemented in quite a unnecessary way. Separating filled from the points came later on
+    // If I had more time I would have converted it all to either a 1d array or removed the add (probably the later.)
+    function addAnswer(section,question,value,positive){
       value = Number(value);
-      if(subtract) value = -value;
+      if(!positive) value = -value;
       answers[section - 1][question - 1] += Number(value);
 
       showResult(section,_totalSection(section));
@@ -73,57 +93,139 @@
               element.addEventListener("click", () => {
                 addAnswer(section, question, element.value, element.checked)
               });
-              filled[section - 1][question - 1] = true;
             }
             else {
               element.addEventListener("click", () => {
                 setAnswer(section, question, element.value)
               });
-              filled[section - 1][question - 1] = false;
             }
           }
         }
       }
       //setting revealers
-      function optionalClicked(section,optionalPart,display){
-        optionalPart.style.display = display;
-        showResult(section,_totalSection(section));
-      }
       {
+        const SECTION = 4;
         const S4Q1 = document.getElementsByName("S4Q1");
         const optional4 = document.getElementById("optional4");
 
         S4Q1[0].addEventListener("click", () =>{
-          optionalClicked(4,optional4,DISPLAY_BLOCK);
+          optional4.style.display = DISPLAY_BLOCK;
+          _setAnswered(SECTION,1);
+
+          if(_checkAnswered(SECTION)){
+            showResult(SECTION,_totalSection(SECTION));
+            _revealNext(SECTION);
+          }
         });
         S4Q1[1].addEventListener("click", () =>{
-          optionalClicked(4,optional4,DISPLAY_NONE);
+          optional4.style.display = DISPLAY_NONE;
+          _setAnswered(SECTION,1);
+
+          if(_checkAnswered(SECTION)){
+            showResult(SECTION,_totalSection(SECTION));
+            _revealNext(SECTION);
+          }
         });
       }
-      //I do realise hardcoding this for 8 is not the neatest. It is an exception in every way to the rest so I feel it
-      //deserves it. That whole an 80% solution is cleaner than 100%.
+      //I should have split the filled and answers system from the beginning to avoid this.
       {
+        const SECTION = 8;
         const revealer8a = document.getElementsByName("revealer8a");
         const optional8a = document.getElementById("optional8a");
 
 
         revealer8a[0].addEventListener("click",() => {
-          optionalClicked(8,optional8a,DISPLAY_BLOCK);
+          optional8a.style.display = DISPLAY_BLOCK;
+          _setAnswered(SECTION,1);
+
+          if(_checkAnswered(SECTION)){
+            showResult(SECTION,_totalSection(SECTION));
+            _revealNext(SECTION);
+          }
         });
         revealer8a[1].addEventListener("click", () => {
-          optionalClicked(8,optional8a,DISPLAY_NONE);
+          optional8a.style.display = DISPLAY_NONE;
+          _setAnswered(SECTION,1);
+
+          if(_checkAnswered(SECTION)){
+            showResult(SECTION,_totalSection(SECTION));
+            _revealNext(SECTION);
+          }
         });
       }
       {
         const revealer8b = document.getElementsByName("revealer8b");
         const optional8b = document.getElementById("optional8b");
+        const SECTION = 8;
 
         revealer8b[0].addEventListener("click",() => {
-          optionalClicked(8,optional8b,DISPLAY_BLOCK);
+          optional8b.style.display = DISPLAY_BLOCK;
+          _setAnswered(SECTION,2);
+
+          if(_checkAnswered(SECTION)){
+            showResult(SECTION,_totalSection(SECTION));
+            _revealNext(SECTION);
+          }
         });
         revealer8b[1].addEventListener("click",() => {
-          optionalClicked(8,optional8b,DISPLAY_NONE);
+          optional8b.style.display = DISPLAY_NONE;
+          _setAnswered(SECTION,2);
+
+          if(_checkAnswered(SECTION)){
+            showResult(SECTION,_totalSection(SECTION));
+            _revealNext(SECTION);
+          }
         });
+      }
+    }
+
+    function _setAnswered(section, question){
+      filled[section - 1][question - 1] = true;
+    }
+
+    //STORE & SEND
+    {
+      function getAllAnswerTotals(){
+        const results = Array();
+
+        answers.forEach( (value) => {
+          let total = 0;
+          value.forEach((value) => total += Number(value));
+          results.push(total);
+        })
+
+        return results;
+      }
+
+      const btnSubmit = document.getElementById("submit");
+
+      btnSubmit.addEventListener("click",() => {
+        if(_verifyAnswered()) return;
+
+        let answers = getAllAnswerTotals();
+
+        window.localStorage.setItem(LOCAL_STORAGE, JSON.stringify(answers));
+        location.href = "html/Result.html";
+      });
+
+      function _verifyAnswered(){
+        let section = 0;
+        while (section < filled.length){
+
+          if(!_checkAnswered(section + 1)){
+            //IF A SECTION IS NOT COMPLETE, SCROLL TO IT.
+            let question = 0;
+            while (filled[section - 1][question]){
+              question++;
+            }
+            const query = `input[name="S${section + 1}Q${question + 1}"]`;
+            document.querySelectorAll(query)[0].focus();
+            return true;
+          }
+
+          section++;
+        }
+        return false;
       }
     }
   }
@@ -175,26 +277,4 @@
       helper.addEventListener("mouseenter",enter);
       helper.addEventListener("mouseleave",exit);
     }
-}
-
-//STORE & SEND
-{
-  function getAllAnswerTotals(){
-    const results = Array();
-
-    answers.forEach( (value) => {
-      let total = 0;
-      value.forEach((value) => total += Number(value));
-      results.push(total);
-    })
-
-    return results;
-  }
-  const btnSubmit = document.getElementById("submit");
-  btnSubmit.addEventListener("click",() => {
-    let answers = getAllAnswerTotals();
-
-    window.localStorage.setItem(LOCAL_STORAGE, JSON.stringify(answers));
-    location.href = "html/Result.html";
-  })
 }
